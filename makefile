@@ -1,21 +1,33 @@
-# This is a simplistic makefile with minimal functionality.
-# More interesting makefiles to come!
-#
-# Specifiy the target
-all: zoo
+# using g++ as the compiler
+CXX := g++
+CXXFLAGS := -Wall -Wextra -std=c++17  # warnings + C++17 standard
 
-# Specify the object files that the target depends on
-# Also specify the object files needed to create the executable
-zoo: zoo.o
-	g++ zoo.o -o zoo
-	
+# all the object files and the final program name
+OBJS := Animal.o AnimalsInZoo.o zoo.o
+TARGET := zoo
 
-# Specify how the object files should be created from source files
-zoo.o: zoo.cpp
-	g++ -Wall -Wextra -c zoo.cpp
-	
+# default target (runs when you just type "make")
+all: $(TARGET)
 
-# Specify the object files and executables that are generated
-# and need to be removed to re-compile the whole thing
+# link everything into the final program
+$(TARGET): $(OBJS)
+	$(CXX) $(OBJS) -o $(TARGET)
+
+# how to build Animal.o
+Animal.o: Animal.cpp Animal.h
+	$(CXX) $(CXXFLAGS) -c Animal.cpp
+
+# how to build AnimalsInZoo.o
+AnimalsInZoo.o: AnimalsInZoo.cpp AnimalsInZoo.h Animal.h
+	$(CXX) $(CXXFLAGS) -c AnimalsInZoo.cpp
+
+# how to build zoo.o (main file)
+zoo.o: zoo.cpp Animal.h AnimalsInZoo.h
+	$(CXX) $(CXXFLAGS) -c zoo.cpp
+
+# clean up compiled stuff so we can rebuild fresh
 clean:
-	rm -f *.o zoo
+	rm -f *.o $(TARGET)
+
+# make sure these aren’t treated as files
+.PHONY: all clean

@@ -1,6 +1,6 @@
 Full Name: Dylan Guthrie
 GitHub ID: dylan2uu
-Binghamton CS userid:
+Binghamton CS userid: dguthrie
 Discord name: patch0691
 
 Please type or copy the CS 310 honesty statement here:

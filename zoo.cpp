@@ -1,34 +1,26 @@
-#include <iostream>
-#include <stdlib.h>
-using namespace std;
-
-class Animal {
-   public:
-      Animal(string speciesName, unsigned int discoveryYear) {
-         species = speciesName;
-         year_discovered = discoveryYear;
-      }
-
-      Animal() : species(""), year_discovered(0) {};
-
-      void display() {
-         cout << species << " [" << year_discovered << "]" << endl;
-      }
-
-   private:
-      string species = "";
-      unsigned int year_discovered = 0;
-};
+#include "Animal.h"
+#include "AnimalsInZoo.h"
 
 int main() {
-   Animal *animal1 = new Animal("African Elephant", 1758);
-   Animal animal2("Giant Panda", 1869);
+    // make animals
+    Animal a1("Giant Panda", 1869);
+    Animal a2("Snow Leopard", 1777);
+    Animal a3("Red Panda", 1825);
 
-   delete animal1;
-   animal1 = new Animal("Snow Leopard", 1777);
+    // show animals
+    a1.display();
+    a2.display();
+    a3.display();
 
-   animal2.display();
-   animal1->display();
+    // test AnimalsInZoo
+    AnimalsInZoo empty;   // 0 animals
+    empty.display();
 
-   delete animal1;
+    AnimalsInZoo one(a1); // 1 animal
+    one.display();
+
+    empty.setAnimal(a2);  // add later
+    empty.display();
+
+    return 0;
 }
